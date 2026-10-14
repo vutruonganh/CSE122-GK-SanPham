@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kế hoạch huấn luyện | PetCompanion – Cổng Huấn luyện viên</title>
+
+  <!-- Font chữ + bộ icon Material Symbols (giống bản thiết kế) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!--
+    CHỈ GIỮ PHẦN NỘI DUNG CHÍNH (main) của trang "Kế hoạch huấn luyện".
+    Header (menu điều hướng) và footer của hệ thống bị lược bỏ theo yêu cầu.
+    Cấu trúc main gồm 5 khối:
+      1. Tiêu đề trang + nút thao tác
+      2. 4 thẻ thống kê (KPI)
+      3. Thanh tìm kiếm & bộ lọc
+      4. Danh sách thẻ kế hoạch (JS render + tìm kiếm theo tên thú cưng)
+      5. Phân trang (chỉ hiển thị)
+  -->
+  <main class="page">
+
+    <!-- 0. LOGO & TÊN HỆ THỐNG
+         Đặt file logo của bạn vào thư mục assets/ với tên logo.png
+         (hoặc đổi đường dẫn src bên dưới cho đúng tên file của bạn) -->
+    <a class="brand" href="index.html" aria-label="PetCompanion – Trang chủ">
+      <img class="brand-logo" src="assets/logo.png" alt="Logo PetCompanion">
+      <span class="brand-role">Huấn luyện viên (Trainer Portal)</span>
+    </a>
+
+    <!-- 1. TIÊU ĐỀ TRANG -->
+    <header class="page-header">
+      <div class="page-title">
+        <nav aria-label="Đường dẫn trang">
+          <ol class="breadcrumb">
+            <li>Cổng huấn luyện viên</li>
+            <li class="breadcrumb-current" aria-current="page">Quản lý lộ trình</li>
+          </ol>
+        </nav>
+        <h1>Kế hoạch huấn luyện &amp; Lộ trình đào tạo hành vi</h1>
+        <p>
+          Xây dựng giáo án cá nhân hóa theo từng giống loài, độ tuổi và mục tiêu rèn luyện
+          thói quen cho thú cưng bằng phương pháp phản hồi tích cực (Positive Reinforcement).
+        </p>
+      </div>
+
+      <div class="page-actions">
+        <button type="button" class="btn btn-outline">
+          <span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span>
+          Xuất báo cáo PDF
+        </button>
+        <button type="button" class="btn btn-primary">
+          <span class="material-symbols-outlined" aria-hidden="true">add_circle</span>
+          Tạo kế hoạch mới
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. THẺ THỐNG KÊ (số liệu cố định) -->
+    <section class="kpi-grid" aria-label="Thống kê nhanh">
+      <article class="card kpi">
+        <div class="kpi-top">
+          <div>
+            <h2 class="kpi-label">Lộ trình đang hoạt động</h2>
+            <p class="kpi-value">15</p>
+          </div>
+          <span class="kpi-icon kpi-icon--teal"><span class="material-symbols-outlined" aria-hidden="true">assignment_turned_in</span></span>
+        </div>
+        <p class="chip chip--teal"><span class="material-symbols-outlined" aria-hidden="true">trending_up</span>+3 lộ trình mới tuần này</p>
+      </article>
+
+      <article class="card kpi">
+        <div class="kpi-top">
+          <div>
+            <h2 class="kpi-label">Học viên thú cưng</h2>
+            <p class="kpi-value">28 <small>bé</small></p>
+          </div>
+          <span class="kpi-icon kpi-icon--mint"><span class="material-symbols-outlined" aria-hidden="true">pets</span></span>
+        </div>
+        <p class="chip-row">
+          <span class="chip chip--gray">🐶 18 cún cưng</span>
+          <span class="chip chip--gray">🐱 10 mèo cưng</span>
+        </p>
+      </article>
+
+      <article class="card kpi kpi--ring">
+        <div class="kpi-top">
+          <div>
+            <h2 class="kpi-label">Tỷ lệ hoàn thành mục tiêu</h2>
+            <p class="kpi-value kpi-value--primary">92.4%</p>
+            <p class="kpi-note kpi-note--success">
+              <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+              Vượt chỉ tiêu học viện (+4.2%)
+            </p>
+          </div>
+          <!-- Biểu đồ vòng tròn vẽ bằng SVG: stroke-dasharray = phần trăm hoàn thành -->
+          <div class="ring" role="img" aria-label="Hoàn thành 92.4%">
+            <svg viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="15.9155"></circle>
+              <circle class="ring-fg" cx="18" cy="18" r="15.9155" stroke-dasharray="92.4, 100"></circle>
+            </svg>
+            <span>K9</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card kpi">
+        <div class="kpi-top">
+          <div>
+            <h2 class="kpi-label">Cần đánh giá định kỳ</h2>
+            <p class="kpi-value kpi-value--warning">04</p>
+          </div>
+          <span class="kpi-icon kpi-icon--amber"><span class="material-symbols-outlined" aria-hidden="true">crisis_alert</span></span>
+        </div>
+        <p class="chip chip--amber"><span class="material-symbols-outlined" aria-hidden="true">schedule</span>Hạn kiểm tra cuối tuần này</p>
+      </article>
+    </section>
+
+    <!-- 3. TÌM KIẾM & BỘ LỌC -->
+    <section class="card toolbar" aria-label="Tìm kiếm và bộ lọc">
+      <form class="filters" id="filterForm" role="search" onsubmit="return false">
+        <div class="search-box">
+          <span class="material-symbols-outlined" aria-hidden="true">search</span>
+          <label for="searchInput" class="sr-only">Tìm kế hoạch</label>
+          <input type="search" id="searchInput" placeholder="Tìm theo tên thú cưng...">
+        </div>
+
+        <div class="selects">
+          <label class="sr-only" for="filterLevel">Lọc theo cấp độ</label>
+          <select id="filterLevel">
+            <option value="all">Tất cả cấp độ</option>
+            <option value="foundation">Cơ bản (Foundation)</option>
+            <option value="advanced">Nâng cao (Advanced Obedience)</option>
+            <option value="therapy">Trị liệu tâm lý / Sửa tật xấu</option>
+          </select>
+
+          <label class="sr-only" for="filterStatus">Lọc theo trạng thái</label>
+          <select id="filterStatus">
+            <option value="all">Tất cả trạng thái</option>
+            <option value="learning">Đang học (In Progress)</option>
+            <option value="graduated">Đã tốt nghiệp (Graduated)</option>
+            <option value="paused">Tạm hoãn (Paused)</option>
+          </select>
+
+          <label class="sr-only" for="filterDuration">Lọc theo thời lượng</label>
+          <select id="filterDuration">
+            <option value="all">Thời lượng: Tất cả</option>
+            <option value="4">4 tuần (Cấp tốc)</option>
+            <option value="8">8 tuần (Tiêu chuẩn)</option>
+            <option value="12">12 tuần (Chuyên sâu)</option>
+          </select>
+
+          <button type="button" class="icon-btn" title="Đặt lại bộ lọc" aria-label="Đặt lại bộ lọc">
+            <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="tag-bar">
+        <span class="tag-title"><span class="material-symbols-outlined" aria-hidden="true">label</span>Mục tiêu nhanh:</span>
+        <ul class="tag-list" id="tagList">
+          <li><button type="button" class="tag" data-tag="Chống sủa dai" aria-pressed="false">#Chống sủa dai</button></li>
+          <li><button type="button" class="tag" data-tag="Lệnh ngồi - chờ - đi cạnh" aria-pressed="false">#Lệnh ngồi - chờ - đi cạnh</button></li>
+          <li><button type="button" class="tag" data-tag="Xã hội hóa cún con" aria-pressed="false">#Xã hội hóa cún con</button></li>
+          <li><button type="button" class="tag" data-tag="Sợ người lạ & xe cộ" aria-pressed="false">#Sợ người lạ &amp; xe cộ</button></li>
+          <li><button type="button" class="tag" data-tag="Đi vệ sinh đúng chỗ" aria-pressed="false">#Đi vệ sinh đúng chỗ</button></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. DANH SÁCH KẾ HOẠCH (JS render các thẻ <article> vào đây) -->
+    <section aria-label="Danh sách kế hoạch huấn luyện">
+      <div class="plan-grid" id="planList"></div>
+      <p class="empty" id="emptyState" hidden>
+        <span class="material-symbols-outlined" aria-hidden="true">search_off</span>
+        Không tìm thấy kế hoạch phù hợp. Hãy thử đổi từ khóa hoặc bấm “Đặt lại bộ lọc”.
+      </p>
+    </section>
+
+    <!-- 5. PHÂN TRANG -->
+    <nav class="card pagination" aria-label="Phân trang">
+      <p>Hiển thị <strong id="shownCount">4</strong> trong tổng số <strong>15</strong> kế hoạch huấn luyện</p>
+      <div class="pages">
+        <button type="button" class="page-btn" aria-label="Trang trước" disabled><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
+        <button type="button" class="page-btn is-active" aria-current="page">1</button>
+        <button type="button" class="page-btn">2</button>
+        <button type="button" class="page-btn">3</button>
+        <button type="button" class="page-btn" aria-label="Trang sau"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+      </div>
+    </nav>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
