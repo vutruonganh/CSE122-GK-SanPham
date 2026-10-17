@@ -52,7 +52,7 @@ Thuật toán lọc mảng (Array.prototype.filter(), Array.prototype.map()) và
 
 4.Đường Dẫn Liên Kết
 
-Link Thiết kế Figma: 
+Link Thiết kế Figma: https://www.figma.com/design/gLUDo4JG47rhgFDaxzZ9QM/GIUAKI?node-id=0-1&t=mGUJIHN7AxZGISNV-1
 
 Link Video Youtube Demo: https://youtu.be/HchwCoRP_XY
 
